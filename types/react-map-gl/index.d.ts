@@ -376,11 +376,22 @@ export interface FullscreenControlProps extends BaseControlProps {
 
 export class FullscreenControl extends BaseControl<FullscreenControlProps, HTMLDivElement> {}
 
-// https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
-interface PositionOptions {
-    enableHighAccuracy?: boolean;
-    timeout: number;
-    maximumAge: number;
+// https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPosition
+interface GeolocationPosition {
+    readonly coords: GeolocationCoordinates;
+    // https://developer.mozilla.org/en-US/docs/Web/API/DOMTimeStamp
+    readonly timestamp: number;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/GeolocationCoordinates
+interface GeolocationCoordinates {
+    readonly latitude: number;
+    readonly longitude: number;
+    readonly altitude: number | null;
+    readonly accuracy: number;
+    readonly altitudeAccuracy: number | null;
+    readonly heading: number | null;
+    readonly speed: number | null;
 }
 
 export interface GeolocateControlProps extends BaseControlProps {
@@ -392,7 +403,7 @@ export interface GeolocateControlProps extends BaseControlProps {
     showUserLocation?: boolean;
     onViewStateChange?: ViewStateChangeHandler;
     onViewportChange?: ViewportChangeHandler;
-    onGeolocate?: (options: PositionOptions) => void;
+    onGeolocate?: (position: GeolocationPosition) => void;
     style?: React.CSSProperties;
 }
 
